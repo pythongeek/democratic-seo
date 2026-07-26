@@ -4,7 +4,7 @@ type AuthMode = "cloudflare_access" | "local_noauth" | "hosted";
 
 const authModeSchema = z
   .enum(["cloudflare_access", "local_noauth", "hosted"])
-  .catch("cloudflare_access");
+  .catch("hosted");
 
 export function getAuthMode(value: string | null | undefined): AuthMode {
   return authModeSchema.parse(value);
