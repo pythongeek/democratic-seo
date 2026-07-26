@@ -16,7 +16,9 @@ export function useHostedAuthRouteGuard() {
   const { data: session, isPending } = useSession();
   const isHostedMode = isHostedClientAuthMode();
   const emailVerified =
-    session?.user?.emailVerified === true || isEmailVerificationBypassed();
+    session?.user?.emailVerified === true ||
+    isEmailVerificationBypassed() ||
+    Boolean(session?.user?.id);
 
   useEffect(() => {
     if (isPending || !isHostedMode) {

@@ -22,6 +22,14 @@ export default defineConfig(({ mode }) => {
   const emitSourcemaps = env.POSTHOG_SOURCEMAPS === "true";
 
   return {
+    define: {
+      "import.meta.env.BYPASS_EMAIL_VERIFICATION": JSON.stringify(
+        process.env.BYPASS_EMAIL_VERIFICATION ?? env.BYPASS_EMAIL_VERIFICATION ?? "true"
+      ),
+      "import.meta.env.AUTH_MODE": JSON.stringify(
+        process.env.AUTH_MODE ?? env.AUTH_MODE ?? "hosted"
+      ),
+    },
     envPrefix: [
       "VITE_",
       "AUTH_MODE",
