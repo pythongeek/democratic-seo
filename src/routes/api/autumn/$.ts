@@ -30,6 +30,16 @@ async function handleAutumnRequest(request: Request) {
     });
   }
 
+  if (!env.AUTUMN_SECRET_KEY?.trim()) {
+    return new Response(
+      JSON.stringify({ message: "Autumn billing is disabled" }),
+      {
+        status: 200,
+        headers: { "content-type": "application/json" },
+      },
+    );
+  }
+
   return (await loadHandler())(request);
 }
 

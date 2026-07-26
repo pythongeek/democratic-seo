@@ -1,5 +1,4 @@
-import type { Autumn } from "autumn-js";
-import { getRequiredEnvValue } from "@/server/lib/runtime-env";
+import { env } from "cloudflare:workers";
 
 let autumnPromise: Promise<Autumn> | undefined;
 
@@ -7,10 +6,19 @@ let autumnPromise: Promise<Autumn> | undefined;
 // graph (self-hosted deployments never load it at all); resolves instantly
 // after the first call.
 function loadAutumn(): Promise<Autumn> {
+  const secretKey = env.AUTUMN_SECRET_KEY?.trim();
+  if (!secretKey) {
+    return Promise.resolve({
+      check: async () => ({ allowed: true, balance: 999999 }),
+      track: async () => ({}),
+      customers: { getOrCreate: async () => ({}) },
+    } as unknown as Autumn);
+  }
+
   return (autumnPromise ??= import("autumn-js").then(
     ({ Autumn }) =>
       new Autumn({
-        secretKey: () => getRequiredEnvValue("AUTUMN_SECRET_KEY"),
+        secretKey: () => secretKey,
         // Retries 429/500/502/503/504 (per-operation retryCodes) plus
         // connection errors. Cloudflare 52x statuses are not in the SDK's
         // retry list, so those still surface immediately.
