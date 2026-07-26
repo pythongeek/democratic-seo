@@ -24,6 +24,9 @@ import {
   sendHostedVerificationEmail,
   upsertHostedSignupContact,
 } from "@/server/email/loops";
+if (typeof process !== "undefined" && process.env && env.BETTER_AUTH_API_KEY) {
+  process.env.BETTER_AUTH_API_KEY = env.BETTER_AUTH_API_KEY;
+}
 
 const hostedBaseUrlSchema = z
   .string()

@@ -73,6 +73,7 @@
   "dependencies": {
     "@ai-sdk/openai": "^4.0.16",
     "@ai-sdk/react": "^3.0.211",
+    "@better-auth/infra": "^0.3.6",
     "@cloudflare/ai-chat": "^0.8.4",
     "@cloudflare/think": "0.12.1",
     "@cloudflare/workers-oauth-provider": "^0.4.0",
