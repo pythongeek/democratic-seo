@@ -125,7 +125,7 @@ function VerifyEmailPage() {
   useEffect(() => {
     if (
       isPending ||
-      (!isVerified && !(bypassEmailVerification && session?.user?.id))
+      (!isVerified && !session?.user?.id)
     ) {
       return;
     }

@@ -131,11 +131,7 @@ function SignUpPage() {
         captureClientEvent("auth:sign_up_success", {
           redirect_to: redirectTo,
         });
-        void navigate({
-          to: "/verify-email",
-          search: getVerifyEmailSearch(email, postSignupRedirect),
-          replace: true,
-        });
+        window.location.replace(postSignupRedirect);
       } catch {
         if (isTurnstileEnabled) captcha.reset();
         formApi.setErrorMap({
