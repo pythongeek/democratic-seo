@@ -48,7 +48,7 @@ async function handleCronRequest(request: Request) {
   }
 }
 
-export const Route = createFileRoute("/api/cron" as any)({
+export const Route = createFileRoute("/api/cron")({
   server: {
     handlers: {
       GET: async ({ request }: { request: Request }) => {

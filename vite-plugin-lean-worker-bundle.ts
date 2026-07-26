@@ -33,10 +33,10 @@ const EAGER_DENYLIST: Array<{ pattern: RegExp; expected: string }> = [
   },
   {
     pattern:
-      /node_modules\/(workers-ai-provider|@ai-sdk\/(openai|anthropic))\//,
+      /node_modules\/(workers-ai-provider|@ai-sdk\/anthropic)\//,
     expected:
       "aliased to workers-ai-provider-stub.ts (@cloudflare/think's default " +
-      "provider path is dead code — our agents construct OpenRouter models)",
+      "provider path is dead code — our agents construct LLM models)",
   },
   {
     pattern: /node_modules\/just-bash\//,
