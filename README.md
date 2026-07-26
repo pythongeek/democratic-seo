@@ -1,76 +1,82 @@
-# OpenSEO
+# Democratic SEO
 
-> Open source alternative to Semrush and Ahrefs
+> Open-source, AI-native alternative to Semrush and Ahrefs
 
-OpenSEO is an SEO tool for _the people_. If tools like Semrush or Ahrefs are too expensive or bloated, OpenSEO is a pay-as-you-go alternative that you actually control.
+Democratic SEO is an SEO research and intelligence tool for *the people*. If tools like Semrush or Ahrefs are too expensive or bloated, Democratic SEO is a pay-as-you-go, self-hostable alternative that you actually control.
 
 > All-in-one SEO tool for you and your AI agent.
 
-Connect with any agent like Claude Code, OpenClaw or Hermes. We have pre-built skills, but you can build your own to tailor OpenSEO to your needs.
+Connect with any AI agent like Claude Code, Cursor, Windsurf, or Hermes via the Model Context Protocol (MCP). Use our pre-built agent skills or build your own to tailor Democratic SEO to your needs.
 
-<img width="1385" height="794" alt="Image" src="https://github.com/user-attachments/assets/fd208249-44ea-4849-bb4b-5fc896aeab73" />
+---
 
-## Hosted Version
+## Key Features
 
-Try OpenSEO for free on our website. If you want to support the project, a hosted subscription is $10/month.
+- **Nion In-App SEO Agent**: Interactive AI assistant with access to every research tool. Powered by **MiniMax API** (Primary) and **Kimi / Moonshot API** (Secondary / Fallback).
+- **Keyword Research & Intent Clustering**: Uncover search volume, CPC, keyword difficulty, and AI-driven semantic intent clusters.
+- **Domain Overview & Footprint**: Organic traffic estimates, domain rank, top ranking terms, and side-by-side competitor gap analysis.
+- **Backlinks & Link Prospecting**: Active backlinks, referring domains, DoFollow ratios, toxicity flags, and link intersection prospecting.
+- **Rank Tracking & Monitoring**: Track search positions on Google Desktop and Mobile across geographic locations on customizable schedules.
+- **Site Audit & Technical Web Crawler**: 100% free, self-hosted web crawler (Cheerio parser) for technical SEO issues, broken links, status codes, and issue severity reports.
+- **Search Performance (Google Search Console)**: Direct Google Search Console integration for real impressions, clicks, CTR, and positions.
+- **OpenSEO / Democratic SEO MCP Server & Agent Skills**: 19+ live SEO tools exposed via MCP to external AI agents.
 
-[openseo.so](https://openseo.so)
+---
 
-## Why use OpenSEO?
+## Deployment & Hosting Options
 
-- Best in class MCP and AI Skills.
-- Modern, simple UI.
-  - Focused workflows instead of a bloated, complex SEO suite.
-- No subscriptions.
-  - Bring your own DataForSEO API key and pay only for what you use.
-- Fork and vibe code your own custom tool.
+Democratic SEO can be deployed for **free** on multiple cloud platforms:
 
-## Main SEO Workflows
+1. **Vercel Free Hobby Tier**:
+   - Deploys as a modern TanStack Start serverless web application.
+   - Use **Neon PostgreSQL Free Tier** or Supabase for zero-cost database hosting.
+   - Automated rank tracking runs for free via **cron-jobs.org** HTTP cron webhook (`/api/cron`).
+   - See [`vercel_cronjobs_org_deployment_guide.md`](./C:/Users/Administrator/.gemini/antigravity-ide/brain/7920ad76-03c4-49d5-9711-ec4ba4188670/vercel_cronjobs_org_deployment_guide.md) or [`vercel.json`](./vercel.json).
 
-- Keyword research
-- Rank tracking
-- Competitor Insights
-- Backlinks
-- Site Audits
-- AI Visibility
+2. **Cloudflare Workers / Pages**:
+   - Runs 100% on Cloudflare's Free Tier (Workers, D1 SQLite Database, R2 File Bucket, KV Namespace, and Native Scheduled Crons).
+   - See [`cloudflare_deployment_guide.md`](./C:/Users/Administrator/.gemini/antigravity-ide/brain/7920ad76-03c4-49d5-9711-ec4ba4188670/cloudflare_deployment_guide.md) or [`wrangler.jsonc`](./wrangler.jsonc).
 
-## OpenSEO MCP & Agent Skills
+3. **Docker Self-Hosting**:
+   - Run locally or on your own VPS with Docker Compose. See [`docs/SELF_HOSTING_DOCKER.md`](./docs/SELF_HOSTING_DOCKER.md).
 
-OpenSEO exposes an MCP server so AI agents like Claude Code, OpenClaw, and Hermes can use your SEO data directly. Agent Skills are reusable workflows that guide your agent through SEO tasks using the MCP.
+---
 
-- [Set up OpenSEO MCP](https://openseo.so/docs/mcp)
-- [Set up OpenSEO Agent Skills](https://openseo.so/docs/skills/setup)
+## Environment Variables Setup
 
-## Self-Hosting
+Copy `.env.vercel.example` or `.env.example` to `.env.local` and set your credentials:
 
-OpenSEO supports two self-hosting paths:
+```env
+# AI Models (Primary: MiniMax, Secondary: Kimi / Moonshot)
+MINIMAX_API_KEY=your_minimax_api_key_here
+MINIMAX_BASE_URL=https://api.minimax.chat/v1
+KIMI_API_KEY=your_kimi_api_key_here
+KIMI_BASE_URL=https://api.moonshot.cn/v1
 
-- **Simple: Docker** for personal use on your own machine (recommended for getting started). See [`docs/SELF_HOSTING_DOCKER.md`](./docs/SELF_HOSTING_DOCKER.md).
-- **Advanced: Cloudflare** for internet-facing self-hosting across multiple devices or with your team (works on the free plan). See [`docs/SELF_HOSTING_CLOUDFLARE.md`](./docs/SELF_HOSTING_CLOUDFLARE.md).
+# SEO Data Provider
+DATAFORSEO_API_KEY=your_base64_dataforseo_credentials
 
-Either way, you need a DataForSEO API key to get SEO data. See [`docs/DATAFORSEO_API_KEY.md`](./docs/DATAFORSEO_API_KEY.md).
+# Database (Postgres for Vercel / D1 for Cloudflare)
+DATABASE_PROVIDER=postgres
+DATABASE_URL=your_postgres_connection_string
 
-## Costs
+# Cron Security Token
+CRON_SECRET=your_random_secret_token
+```
 
-OpenSEO needs a [DataForSEO](https://dataforseo.com/?aff=255379) API key so that you can get SEO data. You pay them directly when self hosting.
-
-See [openseo.so/pricing](https://openseo.so/pricing)
-
-When you self host, your costs will be slightly lower than the estimates on our website. The way the hosted service makes money is by charging 28% extra for every request we make to DataForSEO.
+---
 
 ## Local Development
 
-See [`docs/LOCAL_DEVELOPMENT.md`](./docs/LOCAL_DEVELOPMENT.md).
+```bash
+pnpm install
+pnpm dev
+```
 
-## Contributing
+See [`docs/LOCAL_DEVELOPMENT.md`](./docs/LOCAL_DEVELOPMENT.md) for full instructions.
 
-Contributions are very welcome. See [`docs/CONTRIBUTING.md`](./docs/CONTRIBUTING.md).
+---
 
-## Community
+## License & Contributing
 
-Join Discord to chat: [Discord](https://discord.gg/c9uGs3cFXr)
-
-Follow along for updates:
-
-- Follow on X: https://x.com/bensenescu
-- Sign up for the mailing list on our website: [openseo.so](https://openseo.so)
+Contributions are welcome! See [`docs/CONTRIBUTING.md`](./docs/CONTRIBUTING.md).
